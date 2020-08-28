@@ -1,13 +1,11 @@
 class Drink:
-    def __init__(self, code, name, price, extra="none"):
-        self.code = code
+    def __init__(self, name, price, extra="none"):
         self.name = name
         self.price = price
         self.extra = extra
 
 class Extra:
-    def __init__(self, code, name, price):
-        self.code = code
+    def __init__(self, name, price):
         self.name = name
         self.price = price
 
@@ -16,17 +14,17 @@ def get_price(acc, drink, extra = 0):
     return total_price
 
 drinks = []
-drinks.append(Drink(1, "Capuccino", 2.50))
-drinks.append(Drink(2, "Coffee with milk", 2.00))
-drinks.append(Drink(3, "Espresso", 1.30))
-drinks.append(Drink(4, "Mint tea", 1.90))
-drinks.append(Drink(5, "Cocoa", 2.20))
+drinks.append(Drink("Capuccino", 2.50))
+drinks.append(Drink("Coffee with milk", 2.00))
+drinks.append(Drink("Espresso", 1.30))
+drinks.append(Drink("Mint tea", 1.90))
+drinks.append(Drink("Cocoa", 2.20))
 
 extras = []
-extras.append(Extra(1, "Milk", 0.50))
-extras.append(Extra(2, "Cream", 0.75))
-extras.append(Extra(3, "Sugar", 0.10))
-extras.append(Extra(4, "No thanks", 0.00))
+extras.append(Extra("Milk", 0.50))
+extras.append(Extra("Cream", 0.75))
+extras.append(Extra("Sugar", 0.10))
+extras.append(Extra("No thanks", 0.00))
 
 machine_on = True
 total = 0
@@ -38,8 +36,9 @@ print("---" * 7)
 
 while machine_on:
     print("What would you like to drink?")
-    for drink in drinks:
-        print(str(drink.code) + " - " + drink.name, "for", drink.price)
+    for i in range(len(drinks)):
+        drink = drinks[i]
+        print( str(i+1) + " - " + drink.name, "for", drink.price)
     print()
 
     choice = int(input("What do you choose? "))
@@ -55,17 +54,18 @@ while machine_on:
     
     wants_extra = True
     while wants_extra:
-        for item in extras:
-            if item.name == "No thanks":
+        for i in range(len(extras)):
+            extra = extras[i]
+            if extra.name == "No thanks":
                 print("4 - No thanks")
             else:
-                print(item.code, " - Add ", item.name, " for ", item.price)
+                print(str(i+1) + " - Add ", extra.name, " for ", extra.price)
         
         extra_choice = int(input("Would you like some extras?"))
         if extra_choice > len(extras):
             extra_choice = int(input("Please select a valid number"))
         
-        basket.append(extras[choice -1])
+        basket.append(extras[extra_choice -1])
         
         wants_extra = False
 
